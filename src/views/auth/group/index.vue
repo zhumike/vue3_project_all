@@ -2,13 +2,15 @@
 <template>
   <manel-head />
   <div class="btns">
-    <el-button :icon="Plus" type="primary" @click="open(null)" size="small">打开</el-button>
+    <el-button :icon="Plus" type="primary" @click="open(null)" size="small"
+      >打开</el-button
+    >
   </div>
   <el-table :data="tableData.list" style="width: 100%">
     <el-table-column prop="id" label="id" />
     <el-table-column prop="name" label="昵称" />
     <el-table-column prop="permissionName" label="菜单权限" width="500px" />
-    
+
     <el-table-column label="操作">
       <template #default="scope">
         <el-button type="primary" @click="open(scope.row)">编辑</el-button>
@@ -190,8 +192,8 @@ const confirm = async(formEl)=>{
 </script>
 
 <style lang="less" scoped>
-.btns{
-  padding:10px 0 10px 10px;
-  background-color:#fff;
+.btns {
+  padding: 10px 0 10px 10px;
+  background-color: #fff;
 }
 </style>

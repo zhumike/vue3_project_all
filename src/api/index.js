@@ -49,3 +49,15 @@ export const updateUser = (data) =>{
 export const menuPermissions = () =>{
   return request.get("/menu/permissions")
 }
+
+
+// 培护师头像列表
+export const photoList = () => {
+  return request.get("/photo/list");
+}
+
+
+// 陪护师创建接口
+export const companion = (data) =>{
+  return request.post("/companion", data)
+}
