@@ -1,13 +1,29 @@
 <!-- 我的页面 -->
 <template>
   <div class="btns">
+
     <el-button :icon="Plus" type="primary" @click="open(null)" size="small"
-      >新增</el-button>
+      >新增</el-button
+    >
+    <el-popconfirm
+      confirm-button-text="是"
+      cancel-button-text="否"
+      :icon="InfoFilled"
+      icon-color="#626AEF"
+      title="确定删除吗？"
+      @confirm="confirmEvent"
+      ><template #reference
+        ><el-button :icon="Delete" type="danger" size="small">删除</el-button>
+      </template>
+    </el-popconfirm>
   </div>
 
-  <el-table :data="tableData.list" style="width: 100%"   @selection-change="handleSelectionChange">
-
-  <el-table-column type="selection" width="55"  />
+  <el-table
+    :data="tableData.list"
+    style="width: 100%"
+    @selection-change="handleSelectionChange"
+  >
+    <el-table-column type="selection" width="55" />
     <el-table-column prop="id" label="id" />
 
     <el-table-column prop="name" label="昵称" />
@@ -51,7 +67,7 @@
 
   </el-table>
 
-    <div class="pagination-info">
+  <div class="pagination-info">
     <!-- 分页 -->
     <el-pagination
       v-model:currentPage="paginationData.pageNum"
@@ -172,9 +188,9 @@
 </template>
 
 <script lang="js" setup>
-import {ref,reactive,onMounted} from 'vue'
-import{Plus} from '@element-plus/icons-vue'
-import {photoList,companion,companionList} from '@/api/'
+import {ref,reactive,onMounted,nextTick} from 'vue'
+import{Plus,InfoFilled,Delete} from '@element-plus/icons-vue'
+import {photoList,companion,companionList,deleteCompanion} from '@/api/'
 import { ElMessage } from "element-plus";
 
 
@@ -248,6 +264,7 @@ const confirm = async(formEl)=>{
         if(data.code ===10000){
           ElMessage.success('提交成功')
           beforeClose()
+          getListData()
         } else{
           ElMessage.error(data.message)
         }
@@ -264,8 +281,14 @@ const confirm = async(formEl)=>{
 
 
 // 打开弹窗时，设置可见
-const open = () =>{
+const open = (rowData={}) =>{
   dialogFormVisable.value = true
+  nextTick(()=>{
+    // 如果是编辑
+    if(rowData){
+      Object.assign(form,rowData)
+    }
+  })
 }
 
 
@@ -293,11 +316,27 @@ const handleCurrentChange = (val)=>{
 
 }
 
-const handleSelectionChange=()=>{
-  
+
+const  selectTableData = ref([])
+const handleSelectionChange=(val)=>{
+  selectTableData.value = val.map(item =>({id:item.id}))
 }
 
+const confirmEvent = () => {
+  // 没有选中的数据
+  if(!selectTableData.value.length){
+    return  ElMessage.warning('请至少选择一个用户')
+  }
 
+  deleteCompanion({id:selectTableData.value}).then(({data})=>{
+    if(data.code===10000){
+      getListData()
+    }
+  })
+
+
+
+}
 </script>
 
 <style lang="less" scoped>
@@ -330,4 +369,5 @@ const handleSelectionChange=()=>{
   }
 }
 </style>
+
 
