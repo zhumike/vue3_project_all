@@ -41,28 +41,31 @@ export const menuSelectList = () => {
 };
 
 // 用户的数据修改
-export const updateUser = (data) =>{
-  return request.post("/update/user", data)
-}
+export const updateUser = (data) => {
+  return request.post("/update/user", data);
+};
 
 // 用户菜单权限
-export const menuPermissions = () =>{
-  return request.get("/menu/permissions")
-}
-
+export const menuPermissions = () => {
+  return request.get("/menu/permissions");
+};
 
 // 培护师头像列表
 export const photoList = () => {
   return request.get("/photo/list");
-}
-
+};
 
 // 陪护师创建接口
-export const companion = (data) =>{
-  return request.post("/companion", data)
-}
+export const companion = (data) => {
+  return request.post("/companion", data);
+};
 
 // 陪护师列表
 export const companionList = (params) => {
-  return request.get("/companion/list", { params })
-}
+  return request.get("/companion/list", { params });
+};
+
+// 删除培护师
+export const deleteCompanion = (data) => {
+  return request.post("/delete/companion", data);
+};
