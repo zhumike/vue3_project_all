@@ -18,4 +18,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  // 添加代理配置
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.uomg.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
 })

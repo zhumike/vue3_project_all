@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "axios": "^1.9.0",
+    "axios": "^1.11.0",
+    "axios-jsonp": "^1.0.4",
     "dayjs": "^1.11.13",
     "element-plus": "^2.10.1",
     "express": "^5.1.0",
