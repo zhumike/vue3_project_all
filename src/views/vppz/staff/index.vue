@@ -1,10 +1,10 @@
 <!-- 我的页面 -->
 <template>
   <div class="btns">
-
     <el-button :icon="Plus" type="primary" @click="open(null)" size="small"
       >新增</el-button
     >
+
     <el-popconfirm
       confirm-button-text="是"
       cancel-button-text="否"
@@ -16,6 +16,21 @@
         ><el-button :icon="Delete" type="danger" size="small">删除</el-button>
       </template>
     </el-popconfirm>
+
+    <el-input
+      v-model="input3"
+      style="max-width: 300px; margin-left: 20px"
+      placeholder="请输入昵称"
+      class="input-with-select"
+    >
+      <template #append>
+        <el-button :icon="Search" type="primary" round  @click="getNewData">搜索 </el-button>
+      </template>
+    </el-input>
+
+    <!-- <div>
+      <el-button :icon="Search" type="primary" round>搜索 </el-button>
+    </div> -->
   </div>
 
   <el-table
@@ -64,7 +79,6 @@
         <el-button type="primary" @click="open(scope.row)">编辑</el-button>
       </template>
     </el-table-column>
-
   </el-table>
 
   <div class="pagination-info">
@@ -107,17 +121,10 @@
 
       <!-- 头像处理逻辑 -->
       <el-form-item label="头像" prop="avatar">
-        <el-button
-          v-if="!form.avatar"
-          type="primary"
-          @click="dialogImgVisable = true"
+        <el-button v-if="!form.avatar" type="primary" @click="dialogImgVisable = true"
           >点击上传</el-button
         >
-        <el-image
-          v-else
-          :src="form.avatar"
-          style="width: 100px; height: 100px"
-        />
+        <el-image v-else :src="form.avatar" style="width: 100px; height: 100px" />
       </el-form-item>
 
       <!-- 性别处理逻辑 -->
@@ -189,7 +196,7 @@
 
 <script lang="js" setup>
 import {ref,reactive,onMounted,nextTick} from 'vue'
-import{Plus,InfoFilled,Delete} from '@element-plus/icons-vue'
+import{Plus,InfoFilled,Delete,Search} from '@element-plus/icons-vue'
 import {photoList,companion,companionList,deleteCompanion} from '@/api/'
 import { ElMessage } from "element-plus";
 
@@ -202,6 +209,16 @@ onMounted(()=>{
 
   getListData()
 })
+
+
+const input3 = ref('')
+
+
+// 定义筛选后的列表搜索数据
+const getNewData = () => {
+console.log('************筛选的数据',input3.value)
+}
+
 
 // 分页
 const paginationData=reactive({
@@ -369,5 +386,3 @@ const confirmEvent = () => {
   }
 }
 </style>
-
-
