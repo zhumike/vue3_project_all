@@ -14,6 +14,7 @@ import Staff from "@/views/vppz/staff/index.vue";
 import Order from "@/views/vppz/order/index.vue";
 import QaTools1 from "@/views/qa/tools/index.vue";
 import QaTools2 from "@/views/qa/tools/ToolTest.vue";
+import QaTools3 from "@/views/qa/tools/ChartQa.vue";
 
 
 const routes = [
@@ -113,13 +114,24 @@ const routes = [
         {
             path: "joke",
             meta: {
-              id: "1",
+              id: "2",
               name: "获取一个笑话",
               icon: "Checked",
               path: "/qa/joke",
               describe: "获取一个笑话",
             },
             component: QaTools2,
+          },
+          {
+            path: "chart",
+            meta: {
+              id: "3",
+              name: "获取质量统计趋势图",
+              icon: "Histogram",
+              path: "/qa/chart",
+              describe: "获取图表数据",
+            },
+            component: QaTools3,
           },
 
         ],
