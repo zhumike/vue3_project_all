@@ -24,7 +24,7 @@
     background-color: #ffffff;
 }
 .my_iframe {
-    width: 100%;
+    width: 95%;
     height: 550px;
     border: rgb(22, 12, 5) solid 1px;
     margin-top: 20px;
